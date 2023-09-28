@@ -95,7 +95,7 @@ def list_primos():
             print(index)
 
 
-list_primos()
+# list_primos()
 
 
 # Otra forma
@@ -103,8 +103,57 @@ def is_prime(number):
     if number < 2:
         return False
 
-    for index in range(2, 101):
+    for index in range(2, number):
         if number % index == 0:
             return False
 
     return True
+
+
+def list_primos_2():
+    for index in range(1, 101):
+        result = is_primo(index)
+        if (result):
+            print(index, "Es primo")
+        else:
+            print(index)
+
+
+# list_primos_2()
+
+
+# Challengue 5
+"""
+Crea un programa que invierta el orden de una cadena de texto sin usar funciones
+propias del lenguaje que lo hagan de forma automatica.
+- Si le pasamos "Hola mundo" nos retornara "odnum aloh
+"""
+
+
+def invert_str(str):
+    my_list = list(str)
+    size = len(my_list) - 1
+    arr_str = []
+    str_ivert = ""
+
+    for index in my_list:
+        arr_str.append(my_list[size])
+        size = size - 1
+
+    for index in arr_str:
+        str_ivert = str_ivert + index
+
+    print(str_ivert)
+
+
+# invert_str("Hola Mundo")
+
+def reverse(text):
+    text_len = len(text)
+    reverse_text = ""
+    for index in range(0, text_len):
+        reverse_text += text[text_len - index - 1]
+    return reverse_text
+
+
+print(reverse("Hola Mundo"))
