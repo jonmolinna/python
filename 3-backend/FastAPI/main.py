@@ -1,4 +1,6 @@
 from fastapi import FastAPI
+from routers import products, users
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
@@ -11,3 +13,8 @@ app = FastAPI()
 @app.get("/")
 async def read_root():
     return {'mgs': 'Hola FastAPI'}
+
+app.include_router(products.router)
+app.include_router(users.router)
+# http://127.0.0.1:8000/static/images/img2.png
+app.mount('/static', StaticFiles(directory="static"), name="static")

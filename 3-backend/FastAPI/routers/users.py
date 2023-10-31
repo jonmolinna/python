@@ -1,7 +1,9 @@
-from fastapi import FastAPI
+# from fastapi import FastAPI, HTTPException
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
-app = FastAPI()
+# app = FastAPI()
+router = APIRouter()
 
 # uvicorn users:app --reload
 
@@ -20,7 +22,8 @@ users_list = [
 ]
 
 
-@app.get("/users")
+# @app.get("/users")
+@router.get("/users")
 async def users():
     return [
         {"name": 'Kendra', "surname": "Contreras", "age": 27},
@@ -29,18 +32,18 @@ async def users():
     ]
 
 
-@app.get("/user")
+@router.get("/user")
 async def user():
     return User(id=1, name="Kendra", surname="Contreras", age=27)
 
 
-@app.get("/users_class")
+@router.get("/users_class")
 async def users_class():
     return users_list
 
 
 # GET
-@app.get("/user/{id}")
+@router.get("/user/{id}")
 async def user(id: int):
     return getUserById(id)
 
@@ -48,21 +51,22 @@ async def user(id: int):
 # PATH
 # http://127.0.0.1:8000/userquery?id=4
 # http://127.0.0.1:8000/userquery?id=4&name=kendra
-@app.get("/userquery")
+@router.get("/userquery")
 async def user(id: int):
     return getUserById(id)
 
 
-@app.post("/user")
+@router.post("/user", response_model=User, status_code=201)
 async def user(user: User):
     if type(getUserById(user.id)) == User:
-        return {"error": "El usuario ya existe"}
-    else:
-        users_list.append(user)
-        return user
+        # raise es para lanzar un error
+        raise HTTPException(status_code=404, detail='El usuario ya existe')
+
+    users_list.append(user)
+    return user
 
 
-@app.put("/user")
+@router.put("/user")
 async def user(user: User):
     found = False
 
@@ -77,7 +81,7 @@ async def user(user: User):
     return user
 
 
-@app.delete("/user/{id}")
+@router.delete("/user/{id}")
 async def user(id: int):
     found = False
 
@@ -96,3 +100,7 @@ def getUserById(id: int):
         return list(user)[0]
     except:
         return {"error": "No se ha encontrado el usuario"}
+
+
+# http://127.0.0.1:8000
+# http://127.0.0.1:8000/docs
