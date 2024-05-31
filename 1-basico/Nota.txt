@@ -1,0 +1,10 @@
+Operadores por Jeraquias
+---------------------------------
+1. Operadores Aritmeticos
+  ==> + - / *
+
+2. Operdores de Comparacion
+  ==> == != > >= < <=
+
+3. Operadores Logicos
+  ==> (1) not  (2) and  (3) or 
