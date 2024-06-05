@@ -1,7 +1,7 @@
 Operadores por Jeraquias
 ---------------------------------
 1. Operadores Aritmeticos
-  ==> + - / *
+  ==> + - / * // (Division sin resto) % (Resto de la Division)
 
 2. Operdores de Comparacion
   ==> == != > >= < <=
